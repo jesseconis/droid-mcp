@@ -1,0 +1,550 @@
+# tools.toml — Manifest for droid-mcp
+#
+# Each [[tool]] declares a binary to expose as an MCP tool.
+# At startup, the server runs `binary help_args` to scrape usage docs,
+# which become the tool description. The agent reads the real help text
+# and constructs the correct flags itself.
+#
+# Fields:
+#   name          MCP tool name (what the agent calls)
+#   binary        Binary to invoke
+#   help_args     Args to get help text (e.g., ["-h"]). Empty = use fallback_help
+#   synopsis      One-line summary shown before help text
+#   privilege     "user" (default) or "root"
+#   confirm       true = agent should confirm with user first
+#   timeout       Seconds before killing (default: 30)
+#   subcommand    Fixed subcommand prepended before agent's args
+#   fallback_help Manual help text if scraping fails or isn't available
+
+# ── Termux API tools ───────────────────────────────────────────────────
+# These wrap Android APIs via the Termux:API addon.
+# Help text is scraped automatically from each binary.
+
+[[tool]]
+name = "sensor"
+binary = "termux-sensor"
+help_args = ["-h"]
+synopsis = "Read device hardware sensors (accelerometer, gyroscope, light, etc)"
+
+[[tool]]
+name = "tts"
+binary = "termux-tts-speak"
+help_args = ["-h"]
+synopsis = "Speak text aloud using the device TTS engine"
+timeout = 120
+
+[[tool]]
+name = "battery"
+binary = "termux-battery-status"
+help_args = ["-h"]
+synopsis = "Get battery level, health, temperature, and charging state"
+
+[[tool]]
+name = "clipboard_get"
+binary = "termux-clipboard-get"
+help_args = ["-h"]
+synopsis = "Read the current device clipboard contents"
+
+[[tool]]
+name = "clipboard_set"
+binary = "termux-clipboard-set"
+help_args = ["-h"]
+synopsis = "Set the device clipboard contents"
+
+[[tool]]
+name = "notification"
+binary = "termux-notification"
+help_args = ["-h"]
+synopsis = "Show a notification on the device"
+
+[[tool]]
+name = "notification_remove"
+binary = "termux-notification-remove"
+help_args = ["-h"]
+synopsis = "Remove a notification by ID"
+
+[[tool]]
+name = "notification_list"
+binary = "termux-notification-list"
+help_args = ["-h"]
+synopsis = "List active notifications"
+
+[[tool]]
+name = "location"
+binary = "termux-location"
+help_args = ["-h"]
+synopsis = "Get device GPS/network location (latitude, longitude, altitude)"
+timeout = 30
+
+[[tool]]
+name = "wifi_info"
+binary = "termux-wifi-connectioninfo"
+help_args = ["-h"]
+synopsis = "Get current WiFi connection details (SSID, IP, link speed, etc)"
+
+[[tool]]
+name = "wifi_scan"
+binary = "termux-wifi-scaninfo"
+help_args = ["-h"]
+synopsis = "Scan for nearby WiFi networks"
+
+[[tool]]
+name = "vibrate"
+binary = "termux-vibrate"
+help_args = ["-h"]
+synopsis = "Vibrate the device"
+
+[[tool]]
+name = "toast"
+binary = "termux-toast"
+help_args = ["-h"]
+synopsis = "Show a toast message on screen"
+
+[[tool]]
+name = "camera_info"
+binary = "termux-camera-info"
+help_args = ["-h"]
+synopsis = "List available cameras and their capabilities"
+
+[[tool]]
+name = "camera_photo"
+binary = "termux-camera-photo"
+help_args = ["-h"]
+synopsis = "Take a photo with a device camera"
+timeout = 30
+
+[[tool]]
+name = "audio_info"
+binary = "termux-audio-info"
+help_args = ["-h"]
+synopsis = "Get audio device and volume information"
+
+[[tool]]
+name = "media_player"
+binary = "termux-media-player"
+help_args = ["-h"]
+synopsis = "Control media playback (play, pause, stop audio files)"
+timeout = 60
+
+[[tool]]
+name = "telephony_deviceinfo"
+binary = "termux-telephony-deviceinfo"
+help_args = ["-h"]
+synopsis = "Get telephony device info (IMEI, phone type, network)"
+
+[[tool]]
+name = "telephony_cellinfo"
+binary = "termux-telephony-cellinfo"
+help_args = ["-h"]
+synopsis = "Get cell tower info (carrier, signal strength, cell ID)"
+
+[[tool]]
+name = "torch"
+binary = "termux-torch"
+help_args = ["-h"]
+synopsis = "Toggle the device flashlight/torch on or off"
+
+[[tool]]
+name = "volume"
+binary = "termux-volume"
+help_args = ["-h"]
+synopsis = "Get or set audio stream volumes"
+
+[[tool]]
+name = "brightness"
+binary = "termux-brightness"
+help_args = ["-h"]
+synopsis = "Set screen brightness (0-255 or auto)"
+
+[[tool]]
+name = "wallpaper"
+binary = "termux-wallpaper"
+help_args = ["-h"]
+synopsis = "Set the device wallpaper from a file or URL"
+
+[[tool]]
+name = "download"
+binary = "termux-download"
+help_args = ["-h"]
+synopsis = "Download a file using the system download manager"
+
+[[tool]]
+name = "share"
+binary = "termux-share"
+help_args = ["-h"]
+synopsis = "Share content via the Android share sheet"
+
+[[tool]]
+name = "open_url"
+binary = "termux-open-url"
+help_args = ["-h"]
+synopsis = "Open a URL in the default browser"
+
+[[tool]]
+name = "dialog"
+binary = "termux-dialog"
+help_args = ["-h"]
+synopsis = "Show an interactive dialog (input, confirm, picker, etc)"
+timeout = 120
+
+[[tool]]
+name = "sms_list"
+binary = "termux-sms-list"
+help_args = ["-h"]
+synopsis = "List SMS messages"
+
+[[tool]]
+name = "sms_send"
+binary = "termux-sms-send"
+help_args = ["-h"]
+synopsis = "Send an SMS message"
+confirm = true
+
+[[tool]]
+name = "contact_list"
+binary = "termux-contact-list"
+help_args = ["-h"]
+synopsis = "List contacts from the device address book"
+
+[[tool]]
+name = "fingerprint"
+binary = "termux-fingerprint"
+help_args = ["-h"]
+synopsis = "Authenticate via device fingerprint sensor"
+timeout = 30
+
+[[tool]]
+name = "microphone"
+binary = "termux-microphone-record"
+help_args = ["-h"]
+synopsis = "Record audio from the device microphone"
+timeout = 120
+
+[[tool]]
+name = "media_scan"
+binary = "termux-media-scan"
+help_args = ["-h"]
+synopsis = "Trigger media scanner on a file (update gallery, etc)"
+
+[[tool]]
+name = "wake_lock"
+binary = "termux-wake-lock"
+help_args = ["-h"]
+synopsis = "Acquire a wake lock to prevent the device from sleeping"
+
+[[tool]]
+name = "wake_unlock"
+binary = "termux-wake-unlock"
+help_args = ["-h"]
+synopsis = "Release the wake lock"
+
+# ── Android system tools ───────────────────────────────────────────────
+
+[[tool]]
+name = "getprop"
+binary = "getprop"
+help_args = ["--help"]
+synopsis = "Read Android system properties (e.g., ro.build.version.sdk). No args = list all"
+fallback_help = """
+Usage: getprop [NAME [DEFAULT]]
+
+Reads an Android system property by name.
+With no arguments, lists all properties as [key]: [value].
+
+Common properties:
+  ro.product.model            Device model name
+  ro.product.brand            Device brand
+  ro.build.version.release    Android version (e.g., 14)
+  ro.build.version.sdk        SDK level (e.g., 34)
+  ro.build.display.id         Build ID
+  persist.sys.timezone        System timezone
+  wifi.interface              WiFi interface name
+"""
+
+# ── Activity Manager ───────────────────────────────────────────────────
+
+[[tool]]
+name = "am_start"
+binary = "am"
+subcommand = "start"
+help_args = []
+privilege = "root"
+synopsis = "Launch an app or activity"
+fallback_help = """
+Usage: am start [OPTIONS] INTENT
+
+Start an Activity. INTENT is typically specified as:
+  -n COMPONENT    Component name (e.g., com.app/.MainActivity)
+  -a ACTION       Intent action (e.g., android.intent.action.VIEW)
+  -d DATA         Intent data URI (e.g., https://example.com)
+  -t TYPE         MIME type
+  --user USER_ID  Run as the given user (default: current)
+
+Examples:
+  am start -n com.jesse.hostctl/.MainActivity
+  am start -a android.intent.action.VIEW -d https://example.com
+"""
+
+[[tool]]
+name = "am_force_stop"
+binary = "am"
+subcommand = "force-stop"
+help_args = []
+privilege = "root"
+confirm = true
+synopsis = "Force-stop an app by package name"
+fallback_help = """
+Usage: am force-stop PACKAGE_NAME
+
+Force-stop everything associated with the given package.
+Example: am force-stop com.jesse.hostctl
+"""
+
+[[tool]]
+name = "am_broadcast"
+binary = "am"
+subcommand = "broadcast"
+help_args = []
+privilege = "root"
+synopsis = "Send a broadcast intent"
+fallback_help = """
+Usage: am broadcast [OPTIONS] INTENT
+
+Send a broadcast intent.
+  -a ACTION       Intent action
+  -n COMPONENT    Target component
+  --es KEY VALUE  Extra string
+  --ei KEY VALUE  Extra integer
+
+Example: am broadcast -a com.example.MY_ACTION --es msg "hello"
+"""
+
+# ── Package Manager ────────────────────────────────────────────────────
+
+[[tool]]
+name = "pm_list"
+binary = "pm"
+subcommand = "list"
+help_args = []
+privilege = "root"
+synopsis = "List installed packages"
+fallback_help = """
+Usage: pm list packages [OPTIONS] [FILTER]
+  -f    Show associated APK file path
+  -3    Show only third-party packages
+  -s    Show only system packages
+  -e    Show only enabled packages
+  -d    Show only disabled packages
+  -u    Include uninstalled packages
+
+Example: pm list packages -3 jesse
+"""
+
+[[tool]]
+name = "pm_path"
+binary = "pm"
+subcommand = "path"
+help_args = []
+privilege = "root"
+synopsis = "Get the APK install path for a package"
+fallback_help = """
+Usage: pm path PACKAGE_NAME
+
+Print the path to the APK of the given installed package.
+Example: pm path com.jesse.hostctl
+"""
+
+[[tool]]
+name = "pm_dump"
+binary = "pm"
+subcommand = "dump"
+help_args = []
+privilege = "root"
+synopsis = "Dump detailed package info (permissions, activities, services)"
+timeout = 60
+fallback_help = """
+Usage: pm dump PACKAGE_NAME
+
+Print all known info about the given package.
+Output includes: permissions, activities, services, receivers, providers.
+"""
+
+[[tool]]
+name = "pm_install"
+binary = "pm"
+subcommand = "install"
+help_args = []
+privilege = "root"
+confirm = true
+synopsis = "Install an APK file [DESTRUCTIVE]"
+fallback_help = """
+Usage: pm install [OPTIONS] PATH
+
+Install a package from an APK file.
+  -r    Replace existing application (keep data)
+  -t    Allow test APKs
+  -d    Allow version code downgrade
+  -g    Grant all runtime permissions
+
+Example: pm install -r /data/local/tmp/app.apk
+"""
+
+[[tool]]
+name = "pm_uninstall"
+binary = "pm"
+subcommand = "uninstall"
+help_args = []
+privilege = "root"
+confirm = true
+synopsis = "Uninstall a package [DESTRUCTIVE]"
+fallback_help = """
+Usage: pm uninstall [OPTIONS] PACKAGE_NAME
+
+Remove an installed package.
+  -k    Keep data and cache directories
+
+Example: pm uninstall com.jesse.hostctl
+"""
+
+[[tool]]
+name = "pm_clear"
+binary = "pm"
+subcommand = "clear"
+help_args = []
+privilege = "root"
+confirm = true
+synopsis = "Clear app data and cache [DESTRUCTIVE]"
+fallback_help = """
+Usage: pm clear PACKAGE_NAME
+
+Delete all data associated with a package.
+"""
+
+# ── Debugging tools ────────────────────────────────────────────────────
+
+[[tool]]
+name = "logcat"
+binary = "logcat"
+help_args = ["--help"]
+privilege = "root"
+synopsis = "Read the Android system log. Typically filter by PID: use `app_pid` tool first to find the PID, then pass `--pid <PID> -d -t <lines>`"
+timeout = 15
+max_help_chars = 3000
+
+[[tool]]
+name = "app_pid"
+binary = "pidof"
+help_args = ["--help"]
+privilege = "root"
+synopsis = "Get the PID of a running process by package name or binary name"
+fallback_help = """
+Usage: pidof NAME
+
+Print the PID(s) of the named process.
+Example: pidof com.jesse.hostctl
+Returns nothing if the process is not running.
+"""
+
+[[tool]]
+name = "dumpsys"
+binary = "dumpsys"
+help_args = []
+privilege = "root"
+synopsis = "Dump system service state. Pass a service name (e.g., battery, wifi, activity)"
+timeout = 30
+fallback_help = """
+Usage: dumpsys [SERVICE] [ARGS]
+
+Dump the state of a system service. With no args, dumps all services.
+
+Common services:
+  battery       Battery and charging state
+  wifi          WiFi connection and scan results
+  activity      Activity manager state (recent tasks, running activities)
+  meminfo       Memory usage per process
+  package       Package manager state
+  display       Display configuration
+  input         Input device state
+
+Use `dumpsys -l` to list all available services.
+
+Example: dumpsys battery
+Example: dumpsys activity activities
+"""
+
+# ── Network tools ──────────────────────────────────────────────────────
+
+[[tool]]
+name = "ip"
+binary = "ip"
+help_args = ["help"]
+synopsis = "Query/configure network interfaces, routes, and addresses"
+fallback_help = """
+Usage: ip [OPTIONS] OBJECT COMMAND
+
+Objects: link, addr, route, neigh, rule
+Common commands:
+  ip addr show              Show all addresses
+  ip link show              Show all interfaces
+  ip route show             Show routing table
+  ip neigh show             Show ARP/neighbor table
+  ip -brief addr show       Compact address listing
+"""
+
+[[tool]]
+name = "ping"
+binary = "ping"
+help_args = ["-h"]
+synopsis = "Send ICMP echo requests to test network connectivity"
+timeout = 30
+
+[[tool]]
+name = "curl"
+binary = "curl"
+help_args = ["--help"]
+synopsis = "Transfer data from/to URLs (HTTP, FTP, etc)"
+timeout = 60
+max_help_chars = 3000
+
+# ── Filesystem tools ───────────────────────────────────────────────────
+
+[[tool]]
+name = "ls"
+binary = "ls"
+help_args = ["--help"]
+synopsis = "List directory contents"
+fallback_help = """
+Usage: ls [OPTIONS] [PATH...]
+
+Common options:
+  -l    Long format (permissions, size, date)
+  -a    Include hidden files
+  -h    Human-readable sizes
+  -R    Recursive listing
+  -t    Sort by modification time
+"""
+
+[[tool]]
+name = "find"
+binary = "find"
+help_args = ["--help"]
+synopsis = "Search for files and directories"
+timeout = 30
+
+[[tool]]
+name = "cat"
+binary = "cat"
+help_args = ["--help"]
+synopsis = "Print file contents to stdout"
+fallback_help = """
+Usage: cat [FILE...]
+
+Concatenate and print files. With no args, reads from stdin.
+"""
+
+[[tool]]
+name = "grep"
+binary = "grep"
+help_args = ["--help"]
+synopsis = "Search for patterns in files or input"
+timeout = 30

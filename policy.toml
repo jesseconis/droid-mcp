@@ -1,0 +1,42 @@
+# droid-mcp policy configuration
+#
+# Controls which tools are available and what operations
+# are allowed, especially for root-privileged commands.
+
+[global]
+# Master switch: set false to disable ALL root tools
+allow_root = true
+
+# Tools disabled globally (by tool name)
+disabled_tools = []
+
+# Max output size returned to the agent (bytes)
+max_output_bytes = 512000
+
+# ── Per-tool ACLs ───────────────────────────────────────────────
+
+# Package manager: fine-grained subcommand control.
+# These don't affect the ShellTool directly (the tools are separate),
+# but you can disable specific pm_* tools here.
+[tools.pm_install]
+enabled = true
+
+[tools.pm_uninstall]
+enabled = true
+
+# Disable dangerous operations entirely:
+# [tools.pm_uninstall]
+# enabled = false
+
+# The shell_exec tool is the most powerful — you may want to
+# disable it in production or restrict it.
+[tools.shell_exec]
+enabled = true
+
+# Camera access — disable if not needed
+[tools.camera_photo]
+enabled = true
+
+# File write — careful with this one
+[tools.file_write]
+enabled = true

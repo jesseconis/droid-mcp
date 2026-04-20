@@ -1,6 +1,29 @@
 [package]
-name = "droidutils"
+name = "droid-mcp"
 version = "0.1.0"
 edition = "2024"
+description = "MCP server for rooted Android development via Termux"
+
+[[bin]]
+name = "droid-mcp"
+path = "src/main.rs"
 
 [dependencies]
+axum = { version = "0.7", features = ["macros"] }
+tokio = { version = "1", features = ["full"] }
+tokio-stream = "0.1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+uuid = { version = "1", features = ["v4"] }
+clap = { version = "4", features = ["derive"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+dashmap = "6"
+tower-http = { version = "0.5", features = ["cors"] }
+async-trait = "0.1"
+
+[profile.release]
+opt-level = "s"
+lto = true
+strip = true
