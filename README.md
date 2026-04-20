@@ -1,7 +1,7 @@
 # droid-mcp
 
 > [!WARNING]
-> 🤖 AI generated .:. your milage may vary...
+> 🤖 AI generated .:. your mileage may vary...
 
 MCP (Model Context Protocol) server for rooted Android development via Termux. Exposes device capabilities — network, packages, activities, logcat, sensors, TTS, and more — as structured tools that any MCP-compatible agent can call.
 
